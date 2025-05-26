@@ -1,5 +1,8 @@
 package com.example.projetointegracaofrontend;
 
+import com.example.projetointegracaofrontend.model.AresCategorys;
+import com.example.projetointegracaofrontend.model.CronosCategorys;
+import com.example.projetointegracaofrontend.model.ProductLines;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -9,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private ComboBox<String> comb;
+    private ComboBox<ProductLines> comboBoxLines;
 
     @FXML
     private TitledPane model;
@@ -21,75 +24,52 @@ public class Controller implements Initializable {
     private TitledPane lines;
 
     @FXML
-    private TreeView<String> tree;
+    private TreeView<String> modelTreeView;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comb.getItems().addAll("Cronos", "Ares");
 
-        comb.setOnAction(event -> {
+        comboBoxLines.getItems().addAll(ProductLines.values());
+
+   ;    comboBoxLines.setOnAction(event -> {
             model.setDisable(false);
 
-            String selected = comb.getSelectionModel().getSelectedItem();
-            if (selected != null && !selected.isEmpty() && selected == "Cronos") {
-                TreeItem<String> root = new TreeItem<>();
-                tree.setShowRoot(false);
-                tree.setRoot(root);
+            String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
+            treeViewStructure(selected);
+        });
+    }
 
-                TreeItem<String> category1 = new TreeItem<>("Cronos Old");
-                TreeItem<String> category2 = new TreeItem<>("Cronos L");
-                TreeItem<String> category3 = new TreeItem<>("Cronos‑NG");
+    private void treeViewStructure(String selected) {
+        TreeItem<String> root = new TreeItem<>();
+        modelTreeView.setShowRoot(false);
+        modelTreeView.setRoot(root);
 
-                root.getChildren().addAll(category1, category2, category3);
+        addCronos(selected, root);
+        if (selected != null && !selected.isEmpty() && selected == ProductLines.ARES.getNome()) {
+            for (AresCategorys categorys : AresCategorys.values()) {
+                TreeItem<String> category = new TreeItem<>(categorys.getNome());
+                root.getChildren().addAll(category);
 
-                category1.getChildren().addAll(
-                        new TreeItem<>("Cronos 6001‑A"),
-                        new TreeItem<>("Cronos 6003"),
-                        new TreeItem<>("Cronos 7023")
-                );
-                category2.getChildren().addAll(
-                        new TreeItem<>("Cronos 6021L"),
-                        new TreeItem<>("Cronos 6021L"),
-                        new TreeItem<>("Cronos 7023L")
-                );
-                category3.getChildren().addAll(
-                        new TreeItem<>("Cronos 6001‑NG"),
-                        new TreeItem<>("Cronos 6003‑NG"),
-                        new TreeItem<>("Cronos 6021‑NG"),
-                        new TreeItem<>("Cronos 6031‑NG"),
-                        new TreeItem<>("Cronos 7021‑NG"),
-                        new TreeItem<>("Cronos 7023‑NG")
-                );
+                for (String models : categorys.getModels()) {
+                    TreeItem<String> model = new TreeItem<>(models);
+                    category.getChildren().addAll(model);
+                }
             }
-            if (selected != null && !selected.isEmpty() && selected == "Ares") {
-                TreeItem<String> root = new TreeItem<>();
-                tree.setShowRoot(false);
-                tree.setRoot(root);
+        }
+    }
 
-                TreeItem<String> category1 = new TreeItem<>("Ares TB");
-                TreeItem<String> category2 = new TreeItem<>("Ares THS");
-                root.getChildren().addAll(category1, category2);
+    private static void addCronos(String selected, TreeItem<String> root) {
+        if (selected != null && !selected.isEmpty() && selected == ProductLines.CRONOS.getNome()) {
+            for (CronosCategorys categorys : CronosCategorys.values()) {
+                TreeItem<String> category = new TreeItem<>(categorys.getNome());
+                root.getChildren().addAll(category);
 
-                category1.getChildren().addAll(
-                        new TreeItem<>("ARES 7021"),
-                        new TreeItem<>("ARES 7031"),
-                        new TreeItem<>("ARES 7023")
-                );
-                category2.getChildren().addAll(
-                        new TreeItem<>("ARES 8023 15"),
-                        new TreeItem<>("ARES 8023 200"),
-                        new TreeItem<>("ARES 8023 2,5")
-                );
+                for (String models : categorys.getModels()) {
+                    TreeItem<String> model = new TreeItem<>(models);
+                    category.getChildren().addAll(model);
+                }
             }
-        });
-
-        model.setOnMouseClicked(event -> {
-            accord.setPrefHeight(326);
-        });
-
-        lines.setOnMouseClicked(event -> {
-            accord.setPrefHeight(100);
-        });
+        }
     }
 }
