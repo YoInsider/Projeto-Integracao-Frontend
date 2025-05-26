@@ -46,6 +46,10 @@ public class Controller implements Initializable {
         modelTreeView.setRoot(root);
 
         addCronos(selected, root);
+        addAres(selected, root);
+    }
+
+    private static void addAres(String selected, TreeItem<String> root) {
         if (selected != null && !selected.isEmpty() && selected == ProductLines.ARES.getNome()) {
             for (AresCategorys categorys : AresCategorys.values()) {
                 TreeItem<String> category = new TreeItem<>(categorys.getNome());
