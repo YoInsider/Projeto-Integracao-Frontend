@@ -1,9 +1,12 @@
 package com.example.projetointegracaofrontend.controller;
 
+import com.example.projetointegracaofrontend.model.ProductCategories;
+import com.example.projetointegracaofrontend.model.ProductLines;
+import com.example.projetointegracaofrontend.model.ProductModels;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.example.model.*;
+//import org.example.model.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
