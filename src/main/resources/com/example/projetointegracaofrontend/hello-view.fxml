@@ -41,7 +41,7 @@
                         </AnchorPane>
                     </content>
                 </TitledPane>
-                <TitledPane fx:id="model" alignment="CENTER_RIGHT" animated="false" disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="276.0" prefWidth="565.0" text="Modelos">
+                <TitledPane fx:id="tpModel" alignment="CENTER_RIGHT" animated="false" disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="276.0" prefWidth="565.0" text="Modelos">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>

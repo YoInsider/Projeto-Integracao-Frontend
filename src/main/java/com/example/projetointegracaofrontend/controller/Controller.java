@@ -6,7 +6,6 @@ import com.example.projetointegracaofrontend.model.ProductModels;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-//import org.example.model.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,13 +15,7 @@ public class Controller implements Initializable {
     private ComboBox<ProductLines> comboBoxLines;
 
     @FXML
-    private TitledPane model;
-
-    @FXML
-    private Accordion accord;
-
-    @FXML
-    private TitledPane lines;
+    private TitledPane tpModel;
 
     @FXML
     private TreeView<String> modelTreeView;
@@ -34,7 +27,7 @@ public class Controller implements Initializable {
         comboBoxLines.getItems().addAll(ProductLines.values());
 
    ;    comboBoxLines.setOnAction(event -> {
-            model.setDisable(false);
+            tpModel.setDisable(false);
 
             String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
             treeViewStructure(selected);
@@ -46,19 +39,24 @@ public class Controller implements Initializable {
         modelTreeView.setShowRoot(false);
         modelTreeView.setRoot(root);
 
-        addProductLines(selected, root, ProductLines.ARES);
-        addProductLines(selected, root, ProductLines.CRONOS);
+        addAllProductLines(selected, root);
     }
 
-    private static void addProductLines(String selected, TreeItem<String> root, ProductLines line) {
+    private void addAllProductLines(String selected, TreeItem<String> root) {
+        for (ProductLines line : ProductLines.values()) {
+            addProductLine(selected, root, line);
+        }
+    }
+
+    private static void addProductLine(String selected, TreeItem<String> root, ProductLines line) {
         if (selected != null && !selected.isEmpty() && selected.equals(line.getNome())) {
             for (ProductCategories categories : ProductCategories.values()) {
-                if (categories.getLines() == line) {
+                if (categories.getLines().equals(line)) {
                     TreeItem<String> category = new TreeItem<>(categories.getNome());
                     root.getChildren().addAll(category);
 
                     for (ProductModels models : ProductModels.values()) {
-                        if (models.getCategories() == categories) {
+                        if (models.getCategories().equals(categories)) {
                             TreeItem<String> model = new TreeItem<>(models.getNome());
                             category.getChildren().addAll(model);
                         }
