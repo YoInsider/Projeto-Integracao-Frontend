@@ -21,20 +21,17 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        comboBoxProperties();
+    }
 
-        addComboBoxItems();
+    private void comboBoxProperties() {
+        comboBoxLines.getItems().addAll(ProductLines.values());
 
         comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
-
             String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
-
             treeViewStructure(selected);
         });
-    }
-
-    private void addComboBoxItems() {
-        comboBoxLines.getItems().addAll(ProductLines.values());
     }
 
     private void treeViewStructure(String selected) {
