@@ -22,14 +22,19 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        comboBoxLines.getItems().addAll(ProductLines.values());
+        addComboBoxItems();
 
-   ;    comboBoxLines.setOnAction(event -> {
+        comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
 
             String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
+
             treeViewStructure(selected);
         });
+    }
+
+    private void addComboBoxItems() {
+        comboBoxLines.getItems().addAll(ProductLines.values());
     }
 
     private void treeViewStructure(String selected) {
