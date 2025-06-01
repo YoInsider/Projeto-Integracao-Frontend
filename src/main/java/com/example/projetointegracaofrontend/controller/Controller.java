@@ -1,11 +1,9 @@
 package com.example.projetointegracaofrontend.controller;
 
-import com.example.projetointegracaofrontend.model.ProductCategories;
-import com.example.projetointegracaofrontend.model.ProductLines;
-import com.example.projetointegracaofrontend.model.ProductModels;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.example.model.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,12 +21,14 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        comboBoxProperties();
+    }
 
+    private void comboBoxProperties() {
         comboBoxLines.getItems().addAll(ProductLines.values());
 
-   ;    comboBoxLines.setOnAction(event -> {
+        comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
-
             String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
             treeViewStructure(selected);
         });
