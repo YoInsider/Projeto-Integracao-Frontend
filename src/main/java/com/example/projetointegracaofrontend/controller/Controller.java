@@ -1,16 +1,23 @@
 package com.example.projetointegracaofrontend.controller;
 
+import com.example.projetointegracaofrontend.model.ProductCategoriesDTO;
+import com.example.projetointegracaofrontend.model.ProductLinesDTO;
+import com.example.projetointegracaofrontend.model.ProductModelsDTO;
+import com.example.projetointegracaofrontend.service.ProductCategoriesService;
+import com.example.projetointegracaofrontend.service.ProductLinesService;
+import com.example.projetointegracaofrontend.service.ProductModelsService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.example.model.*;
+import sun.reflect.generics.tree.Tree;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private ComboBox<ProductLines> comboBoxLines;
+    private ComboBox<ProductLinesDTO> comboBoxLines;
 
     @FXML
     private TitledPane tpModel;
@@ -18,6 +25,9 @@ public class Controller implements Initializable {
     @FXML
     private TreeView<String> modelTreeView;
 
+    private final ProductLinesService linesService = new ProductLinesService();
+    private final ProductCategoriesService categoryService = new ProductCategoriesService();
+    private final ProductModelsService modelService = new ProductModelsService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -25,43 +35,31 @@ public class Controller implements Initializable {
     }
 
     private void comboBoxProperties() {
-        comboBoxLines.getItems().addAll(ProductLines.values());
+        List<ProductLinesDTO> linhas = linesService.buscarLinha();
+        comboBoxLines.getItems().addAll(linhas);
 
         comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
-            String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
+            ProductLinesDTO selected = comboBoxLines.getSelectionModel().getSelectedItem();
+
             treeViewStructure(selected);
         });
     }
 
-    private void treeViewStructure(String selected) {
+    private void treeViewStructure(ProductLinesDTO selected) {
         TreeItem<String> root = new TreeItem<>();
-        modelTreeView.setShowRoot(false);
         modelTreeView.setRoot(root);
+        modelTreeView.setShowRoot(false);
 
-        addAllProductLines(selected, root);
-    }
+        List<ProductCategoriesDTO> categorias = categoryService.buscarPorLinha(selected.getId());
+        for (ProductCategoriesDTO categoria : categorias) {
+            TreeItem<String> category = new TreeItem<>(categoria.getName());
+            root.getChildren().addAll(category);
 
-    private void addAllProductLines(String selected, TreeItem<String> root) {
-        for (ProductLines line : ProductLines.values()) {
-            addProductLine(selected, root, line);
-        }
-    }
-
-    private static void addProductLine(String selected, TreeItem<String> root, ProductLines line) {
-        if (selected != null && !selected.isEmpty() && selected.equals(line.getNome())) {
-            for (ProductCategories categories : ProductCategories.values()) {
-                if (categories.getLines().equals(line)) {
-                    TreeItem<String> category = new TreeItem<>(categories.getNome());
-                    root.getChildren().addAll(category);
-
-                    for (ProductModels models : ProductModels.values()) {
-                        if (models.getCategories().equals(categories)) {
-                            TreeItem<String> model = new TreeItem<>(models.getNome());
-                            category.getChildren().addAll(model);
-                        }
-                    }
-                }
+            List<ProductModelsDTO> modelos = modelService.buscarPorCategoria(categoria.getId());
+            for (ProductModelsDTO modelo : modelos) {
+                TreeItem<String> model = new TreeItem<>(modelo.getName());
+                category.getChildren().addAll(model);
             }
         }
     }
