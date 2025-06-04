@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private ComboBox<ProductLinesDTO> comboBoxLines;
+    private ComboBox<> comboBoxLines;
 
     @FXML
     private TitledPane tpModel;
@@ -18,41 +18,49 @@ public class Controller implements Initializable {
     @FXML
     private TreeView<String> modelTreeView;
 
-    private final ProductLinesService linesService = new ProductLinesService();
-    private final ProductCategoriesService categoryService = new ProductCategoriesService();
-    private final ProductModelsService modelService = new ProductModelsService();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxProperties();
     }
 
     private void comboBoxProperties() {
-        List<ProductLinesDTO> linhas = linesService.buscarLinha();
-        comboBoxLines.getItems().addAll(linhas);
+        comboBoxLines.getItems().addAll(ProductLines.values());
 
         comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
-            ProductLinesDTO selected = comboBoxLines.getSelectionModel().getSelectedItem();
-
+            String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
             treeViewStructure(selected);
         });
     }
 
-    private void treeViewStructure(ProductLinesDTO selected) {
+    private void treeViewStructure(String selected) {
         TreeItem<String> root = new TreeItem<>();
-        modelTreeView.setRoot(root);
         modelTreeView.setShowRoot(false);
+        modelTreeView.setRoot(root);
 
-        List<ProductCategoriesDTO> categorias = categoryService.buscarPorLinha(selected.getId());
-        for (ProductCategoriesDTO categoria : categorias) {
-            TreeItem<String> category = new TreeItem<>(categoria.getName());
-            root.getChildren().addAll(category);
+        addAllProductLines(selected, root);
+    }
 
-            List<ProductModelsDTO> modelos = modelService.buscarPorCategoria(categoria.getId());
-            for (ProductModelsDTO modelo : modelos) {
-                TreeItem<String> model = new TreeItem<>(modelo.getName());
-                category.getChildren().addAll(model);
+    private void addAllProductLines(String selected, TreeItem<String> root) {
+        for (ProductLines line : ProductLines.values()) {
+            addProductLine(selected, root, line);
+        }
+    }
+
+    private static void addProductLine(String selected, TreeItem<String> root, ProductLines line) {
+        if (selected != null && !selected.isEmpty() && selected.equals(line.getNome())) {
+            for (ProductCategories categories : ProductCategories.values()) {
+                if (categories.getLines().equals(line)) {
+                    TreeItem<String> category = new TreeItem<>(categories.getNome());
+                    root.getChildren().addAll(category);
+
+                    for (ProductModels models : ProductModels.values()) {
+                        if (models.getCategories().equals(categories)) {
+                            TreeItem<String> model = new TreeItem<>(models.getNome());
+                            category.getChildren().addAll(model);
+                        }
+                    }
+                }
             }
         }
     }
