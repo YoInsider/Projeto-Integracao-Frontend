@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import org.example.model.*;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {

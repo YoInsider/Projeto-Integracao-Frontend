@@ -28,7 +28,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "files\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; DestDir: "{app}"; Flags: ignoreversion
-Source: "files\start.bat"; DestDir: "{app}"
 Source: "IntegrationProject-setup-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "IntegrationProject.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -38,5 +37,5 @@ Name: "{commonprograms}\Projeto Integração"; Filename: "{app}\Projeto-Integracao
 Name: "{commondesktop}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
+Filename: "{sys}\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
 
