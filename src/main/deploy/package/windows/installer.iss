@@ -5,19 +5,20 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{022F4232-8CDC-4533-865D-24A381D9E33B}
-AppName=My Program
-AppVersion=1.5
-;AppVerName=My Program 1.5
+AppId={{0D2AB6CC-969B-48A3-B4FD-C9AACF835907}
+AppName=Projeto Integração
+AppVersion=1.0
+;AppVerName=Projeto Integração 1.0
 AppPublisher=My Company, Inc.
 AppPublisherURL=http://www.example.com/
 AppSupportURL=http://www.example.com/
 AppUpdatesURL=http://www.example.com/
-DefaultDirName={pf}\My Program
+DefaultDirName={pf}\Projeto Integração
 DisableProgramGroupPage=yes
-OutputBaseFilename=setup
+OutputBaseFilename=installer
 Compression=lzma
 SolidCompression=yes
+SetupIconFile=IntegrationProject.ico
 
 [Languages]
 Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
@@ -26,13 +27,16 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\jlucaslpb.dev\IdeaProjects\Projeto-Integracao-Frontend\target\Projeto-Integracao-Frontend-1.0-SNAPSHOT.jar"; DestDir: "{app}"; Flags: ignoreversion
+Source: "files\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; DestDir: "{app}"; Flags: ignoreversion
+Source: "files\start.bat"; DestDir: "{app}"
+Source: "IntegrationProject-setup-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "IntegrationProject.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{commonprograms}\My Program"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT.jar"
-Name: "{commondesktop}\My Program"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT.jar"; Tasks: desktopicon
+Name: "{commonprograms}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; WorkingDir: "{app}"
+Name: "{commondesktop}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT.jar"; Description: "{cm:LaunchProgram,My Program}"; Flags: shellexec postinstall skipifsilent
+Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
 
