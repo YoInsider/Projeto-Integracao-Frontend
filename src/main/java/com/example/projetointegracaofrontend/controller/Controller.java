@@ -3,6 +3,7 @@ package com.example.projetointegracaofrontend.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.example.model.*;
 
 import java.net.URL;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private ComboBox<> comboBoxLines;
+    private ComboBox<ProductLines> comboBoxLines;
 
     @FXML
     private TitledPane tpModel;
