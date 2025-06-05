@@ -4,9 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.example.model.*;
+import org.example.repository.ProductCategoriesRepository;
+import org.example.repository.ProductLinesRepository;
+import org.example.repository.ProductModelsRepository;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
     @FXML
@@ -18,13 +23,31 @@ public class Controller implements Initializable {
     @FXML
     private TreeView<String> modelTreeView;
 
+    private final ProductLinesRepository linesRepo = new ProductLinesRepository();
+    private final ProductCategoriesRepository categoriesRepo = new ProductCategoriesRepository();
+    private final ProductModelsRepository modelsRepo = new ProductModelsRepository();
+
+    private List<ProductCategories> getCategoriesByLine(ProductLines line) {
+        return categoriesRepo.findAll()
+                .stream()
+                .filter(c -> c.getLine().getId() == line.getId())
+                .collect(Collectors.toList());
+    }
+
+    private List<ProductModels> getModelsByCategory(ProductCategories category) {
+        return modelsRepo.findAll()
+                .stream()
+                .filter(m -> m.getCategory().getId() == category.getId())
+                .collect(Collectors.toList());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxProperties();
     }
 
     private void comboBoxProperties() {
-        comboBoxLines.getItems().addAll(ProductLines.values());
+        comboBoxLines.getItems().addAll(linesRepo.findAll());
 
         comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
@@ -38,28 +61,20 @@ public class Controller implements Initializable {
         modelTreeView.setShowRoot(false);
         modelTreeView.setRoot(root);
 
-        addAllProductLines(selected, root);
-    }
+        if (selected == null || selected.isEmpty()) return;
 
-    private void addAllProductLines(String selected, TreeItem<String> root) {
-        for (ProductLines line : ProductLines.values()) {
-            addProductLine(selected, root, line);
-        }
-    }
+        for (ProductLines line : linesRepo.findAll()) {
+            if (!selected.equals(line.getName())) continue;
 
-    private static void addProductLine(String selected, TreeItem<String> root, ProductLines line) {
-        if (selected != null && !selected.isEmpty() && selected.equals(line.getNome())) {
-            for (ProductCategories categories : ProductCategories.values()) {
-                if (categories.getLines().equals(line)) {
-                    TreeItem<String> category = new TreeItem<>(categories.getNome());
-                    root.getChildren().addAll(category);
+            List<ProductCategories> categories = getCategoriesByLine(line);
+            for (ProductCategories category : categories) {
+                TreeItem<String> categoryItem = new TreeItem<>(category.getName());
+                root.getChildren().addAll(categoryItem);
 
-                    for (ProductModels models : ProductModels.values()) {
-                        if (models.getCategories().equals(categories)) {
-                            TreeItem<String> model = new TreeItem<>(models.getNome());
-                            category.getChildren().addAll(model);
-                        }
-                    }
+                List<ProductModels> models = getModelsByCategory(category);
+                for (ProductModels model : models) {
+                    TreeItem<String> modelItem = new TreeItem<>(model.getName());
+                    categoryItem.getChildren().addAll(modelItem);
                 }
             }
         }
