@@ -30,12 +30,13 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "files\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; DestDir: "{app}"; Flags: ignoreversion
 Source: "IntegrationProject-setup-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "IntegrationProject.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "jre\*"; DestDir: "{app}\jre"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{commonprograms}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; WorkingDir: "{app}"
-Name: "{commondesktop}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; Tasks: desktopicon
+Name: "{commonprograms}\Projeto Integração"; Filename: "{app}\jre\bin\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; WorkingDir: "{app}"
+Name: "{commondesktop}\Projeto Integração"; Filename: "{app}\jre\bin\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; Tasks: desktopicon; WorkingDir: "{app}"
 
 [Run]
-Filename: "{sys}\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
+Filename: "{app}\jre\bin\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
 
