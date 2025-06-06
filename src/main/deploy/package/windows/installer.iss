@@ -15,10 +15,11 @@ AppSupportURL=http://www.example.com/
 AppUpdatesURL=http://www.example.com/
 DefaultDirName={pf}\Projeto Integração
 DisableProgramGroupPage=yes
-OutputBaseFilename=installer
+OutputBaseFilename=projeto-integracao
 Compression=lzma
 SolidCompression=yes
 SetupIconFile=IntegrationProject.ico
+OutputDir=..\..\..\..\..\target\native
 
 [Languages]
 Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
