@@ -18,7 +18,7 @@ DisableProgramGroupPage=yes
 OutputBaseFilename=projeto-integracao
 Compression=lzma
 SolidCompression=yes
-SetupIconFile=IntegrationProject.ico
+SetupIconFile=IntegrationProject-setup-icon.ico
 OutputDir=..\..\..\..\..\target\native
 
 [Languages]
@@ -28,16 +28,16 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "files\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Projeto-Integracao-Frontend-1.0-SNAPSHOT\Projeto-Integracao-Frontend-1.0-SNAPSHOT.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Projeto-Integracao-Frontend-1.0-SNAPSHOT\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "IntegrationProject-setup-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "IntegrationProject.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "jre\*"; DestDir: "{app}\jre"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{commonprograms}\Projeto Integração"; Filename: "{app}\jre\bin\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; WorkingDir: "{app}"
-Name: "{commondesktop}\Projeto Integração"; Filename: "{app}\jre\bin\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; IconFilename: "{app}\IntegrationProject-setup-icon.ico"; Tasks: desktopicon; WorkingDir: "{app}"
+Name: "{commonprograms}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT.exe"; IconFilename: "{app}\IntegrationProject.ico"; WorkingDir: "{app}"
+Name: "{commondesktop}\Projeto Integração"; Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT.exe"; IconFilename: "{app}\IntegrationProject.ico"; Tasks: desktopicon; WorkingDir: "{app}"
 
 [Run]
-Filename: "{app}\jre\bin\javaw.exe"; Parameters: "-jar ""{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT-jar-with-dependencies.jar"""; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
+Filename: "{app}\Projeto-Integracao-Frontend-1.0-SNAPSHOT.exe"; Description: "{cm:LaunchProgram,Projeto Integração}"; Flags: shellexec postinstall skipifsilent
 

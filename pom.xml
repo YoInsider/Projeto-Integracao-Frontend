@@ -106,7 +106,7 @@
                 <executions>
                     <execution>
                         <id>inno-setup</id>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -116,6 +116,32 @@
                                 <argument>${project.basedir}/src/main/deploy/package/windows/installer.iss</argument>
                             </arguments>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <mainClass>com.example.projetointegracaofrontend.MainApplication</mainClass>
+                    <vendor>Eletra Energy Solutions</vendor>
+                    <nativeOutputDir>${project.basedir}/src/main/deploy/package/windows</nativeOutputDir>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-jfxjar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build-jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>create-native</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build-native</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
