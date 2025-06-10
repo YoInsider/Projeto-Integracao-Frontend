@@ -107,6 +107,8 @@
                     <mainClass>com.example.projetointegracaofrontend.MainApplication</mainClass>
                     <vendor>Eletra Energy Solutions</vendor>
                     <nativeOutputDir>${project.basedir}/src/main/deploy/package/windows</nativeOutputDir>
+                    <verbose>true</verbose>
+<!--                    <additionalAppResources>${project.basedir}/src/main/deploy/package/windows</additionalAppResources>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -139,7 +141,7 @@
                         <configuration>
                             <executable>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</executable>
                             <arguments>
-                                <argument>${project.basedir}/src/main/deploy/package/windows/installer.iss</argument>
+                                <argument>${project.basedir}/src/main/deploy/package/windows/setup.iss</argument>
                             </arguments>
                         </configuration>
                     </execution>
