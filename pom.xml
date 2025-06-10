@@ -100,26 +100,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>inno-setup</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</executable>
-                            <arguments>
-                                <argument>${project.basedir}/src/main/deploy/package/windows/installer.iss</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.8.3</version>
@@ -142,6 +122,26 @@
                         <goals>
                             <goal>build-native</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>inno-setup</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</executable>
+                            <arguments>
+                                <argument>${project.basedir}/src/main/deploy/package/windows/installer.iss</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
