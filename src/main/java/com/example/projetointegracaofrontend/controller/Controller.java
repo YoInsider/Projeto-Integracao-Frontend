@@ -1,5 +1,11 @@
 package com.example.projetointegracaofrontend.controller;
 
+import com.example.projetointegracaofrontend.dto.ProductCategoriesDTO;
+import com.example.projetointegracaofrontend.dto.ProductLinesDTO;
+import com.example.projetointegracaofrontend.dto.ProductModelsDTO;
+import com.example.projetointegracaofrontend.service.ProductCategoriesService;
+import com.example.projetointegracaofrontend.service.ProductLinesService;
+import com.example.projetointegracaofrontend.service.ProductModelsService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -28,7 +34,7 @@ public class Controller implements Initializable {
     }
 
     private void comboBoxProperties() {
-        List<ProductLinesDTO> linhas = linesService.buscarLinha();
+        List<ProductLinesDTO> linhas = linesService.getLines();
         comboBoxLines.getItems().addAll(linhas);
 
         comboBoxLines.setOnAction(event -> {
@@ -44,12 +50,12 @@ public class Controller implements Initializable {
         modelTreeView.setRoot(root);
         modelTreeView.setShowRoot(false);
 
-        List<ProductCategoriesDTO> categorias = categoryService.buscarPorLinha(selected.getId());
+        List<ProductCategoriesDTO> categorias = categoryService.getCategories(selected.getId());
         for (ProductCategoriesDTO categoria : categorias) {
             TreeItem<String> category = new TreeItem<>(categoria.getName());
             root.getChildren().addAll(category);
 
-            List<ProductModelsDTO> modelos = modelService.buscarPorCategoria(categoria.getId());
+            List<ProductModelsDTO> modelos = modelService.getModels(categoria.getId());
             for (ProductModelsDTO modelo : modelos) {
                 TreeItem<String> model = new TreeItem<>(modelo.getName());
                 category.getChildren().addAll(model);
