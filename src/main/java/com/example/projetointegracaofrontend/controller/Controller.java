@@ -1,22 +1,21 @@
 package com.example.projetointegracaofrontend.controller;
 
-import com.example.projetointegracaofrontend.dto.ProductCategoriesDTO;
-import com.example.projetointegracaofrontend.dto.ProductLinesDTO;
-import com.example.projetointegracaofrontend.dto.ProductModelsDTO;
-import com.example.projetointegracaofrontend.service.ProductCategoriesService;
-import com.example.projetointegracaofrontend.service.ProductLinesService;
-import com.example.projetointegracaofrontend.service.ProductModelsService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.example.model.*;
+import org.example.repository.ProductCategoriesRepository;
+import org.example.repository.ProductLinesRepository;
+import org.example.repository.ProductModelsRepository;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
     @FXML
-    private ComboBox<ProductLinesDTO> comboBoxLines;
+    private ComboBox<ProductLines> comboBoxLines;
 
     @FXML
     private TitledPane tpModel;
@@ -24,9 +23,23 @@ public class Controller implements Initializable {
     @FXML
     private TreeView<String> modelTreeView;
 
-    private final ProductLinesService linesService = new ProductLinesService();
-    private final ProductCategoriesService categoryService = new ProductCategoriesService();
-    private final ProductModelsService modelService = new ProductModelsService();
+    private final ProductLinesRepository linesRepo = new ProductLinesRepository();
+    private final ProductCategoriesRepository categoriesRepo = new ProductCategoriesRepository();
+    private final ProductModelsRepository modelsRepo = new ProductModelsRepository();
+
+    private List<ProductCategories> getCategoriesByLine(ProductLines line) {
+        return categoriesRepo.findAll()
+                .stream()
+                .filter(c -> c.getLine().getId() == line.getId())
+                .collect(Collectors.toList());
+    }
+
+    private List<ProductModels> getModelsByCategory(ProductCategories category) {
+        return modelsRepo.findAll()
+                .stream()
+                .filter(m -> m.getCategory().getId() == category.getId())
+                .collect(Collectors.toList());
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,31 +47,35 @@ public class Controller implements Initializable {
     }
 
     private void comboBoxProperties() {
-        List<ProductLinesDTO> linhas = linesService.getLines();
-        comboBoxLines.getItems().addAll(linhas);
+        comboBoxLines.getItems().addAll(linesRepo.findAll());
 
         comboBoxLines.setOnAction(event -> {
             tpModel.setDisable(false);
-            ProductLinesDTO selected = comboBoxLines.getSelectionModel().getSelectedItem();
-
+            String selected = String.valueOf(comboBoxLines.getSelectionModel().getSelectedItem());
             treeViewStructure(selected);
         });
     }
 
-    private void treeViewStructure(ProductLinesDTO selected) {
+    private void treeViewStructure(String selected) {
         TreeItem<String> root = new TreeItem<>();
-        modelTreeView.setRoot(root);
         modelTreeView.setShowRoot(false);
+        modelTreeView.setRoot(root);
 
-        List<ProductCategoriesDTO> categorias = categoryService.getCategories(selected.getId());
-        for (ProductCategoriesDTO categoria : categorias) {
-            TreeItem<String> category = new TreeItem<>(categoria.getName());
-            root.getChildren().addAll(category);
+        if (selected == null || selected.isEmpty()) return;
 
-            List<ProductModelsDTO> modelos = modelService.getModels(categoria.getId());
-            for (ProductModelsDTO modelo : modelos) {
-                TreeItem<String> model = new TreeItem<>(modelo.getName());
-                category.getChildren().addAll(model);
+        for (ProductLines line : linesRepo.findAll()) {
+            if (!selected.equals(line.getName())) continue;
+
+            List<ProductCategories> categories = getCategoriesByLine(line);
+            for (ProductCategories category : categories) {
+                TreeItem<String> categoryItem = new TreeItem<>(category.getName());
+                root.getChildren().addAll(categoryItem);
+
+                List<ProductModels> models = getModelsByCategory(category);
+                for (ProductModels model : models) {
+                    TreeItem<String> modelItem = new TreeItem<>(model.getName());
+                    categoryItem.getChildren().addAll(modelItem);
+                }
             }
         }
     }
