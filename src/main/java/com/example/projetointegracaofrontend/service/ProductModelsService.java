@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 public class ProductModelsService {
-    private final String baseURL = "http://localhost:8080/api/modelos";
+    private final String baseURL = "http://localhost:8080/api/models";
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<ProductModelsDTO> getModels(Long id) {
