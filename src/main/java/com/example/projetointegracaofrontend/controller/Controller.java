@@ -24,9 +24,19 @@ public class Controller implements Initializable {
     @FXML
     private TreeView<String> modelTreeView;
 
-    private final ProductLinesService linesService = new ProductLinesService();
-    private final ProductCategoriesService categoryService = new ProductCategoriesService();
-    private final ProductModelsService modelService = new ProductModelsService();
+    private ProductLinesService linesService;
+    private ProductCategoriesService categoryService;
+    private ProductModelsService modelService;
+
+    public Controller() {
+        this(new ProductLinesService(), new ProductCategoriesService(), new ProductModelsService());
+    }
+
+    public Controller(ProductLinesService linesService, ProductCategoriesService categoryService, ProductModelsService modelService) {
+        this.linesService = linesService;
+        this.categoryService = categoryService;
+        this.modelService = modelService;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
