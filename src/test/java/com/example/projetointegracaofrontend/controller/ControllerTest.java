@@ -7,7 +7,9 @@ import com.example.projetointegracaofrontend.service.ProductCategoriesService;
 import com.example.projetointegracaofrontend.service.ProductLinesService;
 import com.example.projetointegracaofrontend.service.ProductModelsService;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,6 +49,7 @@ class ControllerTest {
     @Test
     void testInitialize() throws Exception {
         testComboBoxProperties();
+        controller.initialize(null, null);
     }
 
     @Test
@@ -65,9 +68,22 @@ class ControllerTest {
         comboField.setAccessible(true);
         comboField.set(controller, comboBox);
 
+        TitledPane mockTpModel = new TitledPane();
+        Field tpModelField = Controller.class.getDeclaredField("tpModel");
+        tpModelField.setAccessible(true);
+        tpModelField.set(controller, mockTpModel);
+
         Method method = Controller.class.getDeclaredMethod("comboBoxProperties");
         method.setAccessible(true);
         method.invoke(controller);
+
+        TreeView<String> treeView = new TreeView<>();
+        Field treeViewField = Controller.class.getDeclaredField("modelTreeView");
+        treeViewField.setAccessible(true);
+        treeViewField.set(controller, treeView);
+
+        comboBox.getSelectionModel().select(1);
+        comboBox.getOnAction().handle(new ActionEvent());
 
         assertEquals(2, comboBox.getItems().size());
         assertEquals(1, comboBox.getItems().get(0).getId());
