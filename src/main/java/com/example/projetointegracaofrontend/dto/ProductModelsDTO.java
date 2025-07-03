@@ -5,6 +5,13 @@ public class ProductModelsDTO {
     private String name;
     private ProductCategoriesDTO category;
 
+    public ProductModelsDTO() {}
+
+    public ProductModelsDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
