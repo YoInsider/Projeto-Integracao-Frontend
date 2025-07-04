@@ -9,8 +9,17 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 public class ProductCategoriesService {
-    private final String baseURL = "http://localhost:8080/api/categories";
-    private final RestTemplate restTemplate = new RestTemplate();
+    private String baseURL = "http://localhost:8080/api/categories";
+    private RestTemplate restTemplate = new RestTemplate();
+
+    public ProductCategoriesService(RestTemplate restTemplate, String url) {
+        this.restTemplate = restTemplate;
+        this.baseURL = url;
+    }
+
+    public ProductCategoriesService() {
+
+    }
 
     public List<ProductCategoriesDTO> getCategories(Long id) {
         String url = baseURL + "/" + id;
