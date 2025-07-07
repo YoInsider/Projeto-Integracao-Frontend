@@ -47,13 +47,13 @@ class ControllerTest {
     }
 
     @Test
-    void testInitialize() throws Exception {
+    public void testInitialize() throws Exception {
         testComboBoxProperties();
         controller.initialize(null, null);
     }
 
     @Test
-    void testComboBoxProperties() throws Exception {
+    public void testComboBoxProperties() throws Exception {
         List<ProductLinesDTO> lines = Arrays.asList(
                 new ProductLinesDTO(1L, "Line A"),
                 new ProductLinesDTO(2L, "Line B")
@@ -95,7 +95,7 @@ class ControllerTest {
     }
 
     @Test
-    void testTreeViewStructure() throws Exception{
+    public void testTreeViewStructure() throws Exception{
         Long id = 1L;
         ProductLinesDTO mockLine = new ProductLinesDTO(1L, "Line A");
 

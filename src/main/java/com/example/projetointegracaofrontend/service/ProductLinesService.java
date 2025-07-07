@@ -9,12 +9,11 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 public class ProductLinesService {
-    private String baseURL = "http://localhost:8080/api/lines";
-    private RestTemplate restTemplate = new RestTemplate();
+    protected String baseURL = "http://localhost:8080/api/lines";
+    protected RestTemplate restTemplate = new RestTemplate();
 
-    public ProductLinesService(RestTemplate restTemplate, String url) {
+    public ProductLinesService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.baseURL = url;
     }
 
     public ProductLinesService() {

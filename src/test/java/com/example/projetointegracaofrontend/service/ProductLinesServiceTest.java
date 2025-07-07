@@ -27,10 +27,11 @@ class ProductLinesServiceTest {
     private RestTemplate restTemplate = new RestTemplate();
 
     @InjectMocks
-    private ProductLinesService productLinesService = new ProductLinesService(restTemplate, "http://localhost:8080/api/lines");
+    private ProductLinesService productLinesService = new ProductLinesService(restTemplate);
 
     @Test
-    void testGetLines() {
+    public void testGetLines() {
+        String baseURL = "http://localhost:8080/api/lines";
         List<ProductLinesDTO> mockLines = Arrays.asList(
                 new ProductLinesDTO(1L, "Line A"),
                 new ProductLinesDTO(2L, "Line B")
@@ -39,7 +40,7 @@ class ProductLinesServiceTest {
         ResponseEntity<List<ProductLinesDTO>> mockResponse = new ResponseEntity<>(mockLines, HttpStatus.OK);
 
         when(restTemplate.exchange(
-                eq("http://localhost:8080/api/lines"),
+                eq(baseURL),
                 eq(HttpMethod.GET),
                 isNull(),
                 ArgumentMatchers.<ParameterizedTypeReference<List<ProductLinesDTO>>>any()

@@ -28,12 +28,13 @@ class ProductCategoriesServiceTest {
     private RestTemplate restTemplate = new RestTemplate();
 
     @InjectMocks
-    private ProductCategoriesService productCategoriesService = new ProductCategoriesService(restTemplate, "http://localhost:8080/api/categories");
+    private ProductCategoriesService productCategoriesService = new ProductCategoriesService(restTemplate);
 
     @Test
-    void testGetCategories() {
+    public void testGetCategories() {
+        String baseURL = "http://localhost:8080/api/categories";
         Long id = 1L;
-        String url = "http://localhost:8080/api/categories/" + id;
+        String url = baseURL + "/" + id;
 
         List<ProductCategoriesDTO> mockCategories = Arrays.asList(
                 new ProductCategoriesDTO(1L, "Category A"),

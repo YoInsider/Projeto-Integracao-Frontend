@@ -27,12 +27,13 @@ class ProductModelsServiceTest {
     private RestTemplate restTemplate = new RestTemplate();
 
     @InjectMocks
-    private ProductModelsService productModelsService = new ProductModelsService(restTemplate, "http://localhost:8080/api/models");
+    private ProductModelsService productModelsService = new ProductModelsService(restTemplate);
 
     @Test
-    void testGetModels() {
+    public void testGetModels() {
+        String baseURL = "http://localhost:8080/api/models";
         Long id = 1L;
-        String url = "http://localhost:8080/api/models/" + id;
+        String url = baseURL + "/" + id;
 
         List<ProductModelsDTO> mockModels = Arrays.asList(
                 new ProductModelsDTO(1L, "Model A"),
