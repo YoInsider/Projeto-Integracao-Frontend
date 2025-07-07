@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ProductModelsServiceTest {
+public class ProductModelsServiceTest {
     @Mock
     private RestTemplate restTemplate = new RestTemplate();
 
