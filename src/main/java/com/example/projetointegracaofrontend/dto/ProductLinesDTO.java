@@ -15,7 +15,7 @@ public class ProductLinesDTO {
         return name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

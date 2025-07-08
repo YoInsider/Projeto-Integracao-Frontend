@@ -1,7 +1,6 @@
 package com.example.projetointegracaofrontend.service;
 
 import com.example.projetointegracaofrontend.dto.ProductCategoriesDTO;
-import com.example.projetointegracaofrontend.dto.ProductLinesDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;

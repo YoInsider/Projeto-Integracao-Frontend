@@ -28,14 +28,6 @@ public class Controller implements Initializable {
     protected ProductCategoriesService categoryService = new ProductCategoriesService();
     protected ProductModelsService modelService = new ProductModelsService();
 
-    public Controller() {}
-
-    public Controller(ProductLinesService linesService, ProductCategoriesService categoryService, ProductModelsService modelService) {
-        this.linesService = linesService;
-        this.categoryService = categoryService;
-        this.modelService = modelService;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxProperties();
