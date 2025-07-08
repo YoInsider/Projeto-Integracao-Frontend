@@ -15,11 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.omg.PortableServer.POA;
 import org.testfx.framework.junit.ApplicationTest;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
