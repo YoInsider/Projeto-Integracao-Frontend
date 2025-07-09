@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.*;
@@ -51,12 +52,12 @@ public class ProductCategoriesServiceTest {
 
         List<ProductCategoriesDTO> result = productCategoriesService.getCategories(id);
 
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals(1, result.get(0).getId());
-        assertEquals("Category A", result.get(0).getName());
-        assertEquals(2, result.get(1).getId());
-        assertEquals("Category B", result.get(1).getName());
+        assertNotNull("Verifies if result isn't null", result);
+        assertEquals("Verifies if the amount of items equals 2",2, result.size());
+        assertEquals("Verifies if the item's id at index 0 equals 1", 1L, result.get(0).getId());
+        assertEquals("Verifies if the item's name at index 0 equals Category A", "Category A", result.get(0).getName());
+        assertEquals("Verifies if the item's id at index 1 equals 2", 2L, result.get(1).getId());
+        assertEquals("Verifies if the item's name at index 1 equals Category B","Category B", result.get(1).getName());
 
         verify(restTemplate, times(1)).exchange(
                 eq(url),

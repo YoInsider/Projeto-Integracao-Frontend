@@ -18,7 +18,7 @@ public class ProductModelsDTO {
         this.category = category;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.*;
@@ -48,12 +49,12 @@ public class ProductLinesServiceTest {
 
         List<ProductLinesDTO> result = productLinesService.getLines();
 
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals(1L, result.get(0).getId());
-        assertEquals("Line A", result.get(0).getName());
-        assertEquals(2L, result.get(1).getId());
-        assertEquals("Line B", result.get(1).getName());
+        assertNotNull("Verifies if result isn't null",result);
+        assertEquals("Verifies if the amount of items equals 2",2, result.size());
+        assertEquals("Verifies if the item's id at index 0 equals 1",1L, result.get(0).getId());
+        assertEquals("Verifies if the item's name at index 0 equals Line A","Line A", result.get(0).getName());
+        assertEquals("Verifies if the item's id at index 1 equals 2",2L, result.get(1).getId());
+        assertEquals("Verifies if the item's name at index 1 equals Line B","Line B", result.get(1).getName());
 
         verify(restTemplate, times(1)).exchange(
                 eq("http://localhost:8080/api/lines"),
