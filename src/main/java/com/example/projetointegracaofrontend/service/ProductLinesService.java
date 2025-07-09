@@ -9,8 +9,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 public class ProductLinesService {
-    private final String baseURL = "http://localhost:8080/api/lines";
-    private final RestTemplate restTemplate = new RestTemplate();
+    protected String baseURL = "http://localhost:8080/api/lines";
+    protected RestTemplate restTemplate = new RestTemplate();
+
+    public ProductLinesService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public ProductLinesService() {
+
+    }
 
     public List<ProductLinesDTO> getLines() {
         ResponseEntity<List<ProductLinesDTO>> response = restTemplate.exchange(

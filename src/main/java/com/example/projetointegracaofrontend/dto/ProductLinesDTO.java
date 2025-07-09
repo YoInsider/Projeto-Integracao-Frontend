@@ -4,11 +4,18 @@ public class ProductLinesDTO {
     private Long id;
     private String name;
 
+    public ProductLinesDTO() {}
+
+    public ProductLinesDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
