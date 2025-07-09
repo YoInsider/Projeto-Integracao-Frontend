@@ -62,11 +62,11 @@ public class ControllerTest extends ApplicationTest {
         controller.comboBoxLines.getOnAction().handle(new ActionEvent());
         ProductLinesDTO selected = controller.comboBoxLines.getSelectionModel().getSelectedItem();
 
-        assertEquals("",2, controller.comboBoxLines.getItems().size());
-        assertEquals("", 1L, controller.comboBoxLines.getItems().get(0).getId());
-        assertEquals("Line A", controller.comboBoxLines.getItems().get(0).getName());
-        assertEquals("", 2L, controller.comboBoxLines.getItems().get(1).getId());
-        assertEquals("Line B", controller.comboBoxLines.getItems().get(1).getName());
+        assertEquals("Verifies if the amount of items in the combobox equals to 2",2, controller.comboBoxLines.getItems().size());
+        assertEquals("Verifies if the item's id at index 0 equals to 1", 1L, controller.comboBoxLines.getItems().get(0).getId());
+        assertEquals("Verifies if the item's name at index 0 equals to Line A","Line A", controller.comboBoxLines.getItems().get(0).getName());
+        assertEquals("Verifies if the item's id at index 1 equals to 2", 2L, controller.comboBoxLines.getItems().get(1).getId());
+        assertEquals("Verifies if the item's name at index 1 equals to Line B", "Line B", controller.comboBoxLines.getItems().get(1).getName());
 
         doNothing().when(controller).treeViewStructure(selected);
 
@@ -96,18 +96,18 @@ public class ControllerTest extends ApplicationTest {
         controller.treeViewStructure(mockLine);
 
         TreeItem<String> root = controller.modelTreeView.getRoot();
-        assertNotNull(root);
-        assertEquals(2, root.getChildren().size());
+        assertNotNull("Verifies if root isn't null", root);
+        assertEquals("Verifies if the root has 2 categories",2, root.getChildren().size());
 
         TreeItem<String> categoryItem = root.getChildren().get(0);
         TreeItem<String> categoryItem1 = root.getChildren().get(1);
-        assertEquals("Category A", categoryItem.getValue());
-        assertEquals("Category B", categoryItem1.getValue());
+        assertEquals("Verifies if the root's child at index 0 equals to Category A","Category A", categoryItem.getValue());
+        assertEquals("Verifies is the root's child at index 1 equals to Category B","Category B", categoryItem1.getValue());
 
         TreeItem<String> modelItem = categoryItem.getChildren().get(0);
         TreeItem<String> modelItem1 = categoryItem.getChildren().get(1);
-        assertEquals("Model A", modelItem.getValue());
-        assertEquals("Model B", modelItem1.getValue());
+        assertEquals("Verifies if the category's child at index 0 equals to Model A","Model A", modelItem.getValue());
+        assertEquals("Verifies if the category's child at index 1 equals to Model B","Model B", modelItem1.getValue());
 
         verify(controller.categoryService).getCategories(id);
         verify(controller.modelService).getModels(id);
