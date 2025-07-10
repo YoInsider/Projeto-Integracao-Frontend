@@ -16,24 +16,24 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private ComboBox<ProductLinesDTO> comboBoxLines;
+    protected ComboBox<ProductLinesDTO> comboBoxLines;
 
     @FXML
-    private TitledPane tpModel;
+    protected TitledPane tpModel;
 
     @FXML
-    private TreeView<String> modelTreeView;
+    protected TreeView<String> modelTreeView;
 
-    private final ProductLinesService linesService = new ProductLinesService();
-    private final ProductCategoriesService categoryService = new ProductCategoriesService();
-    private final ProductModelsService modelService = new ProductModelsService();
+    protected ProductLinesService linesService = new ProductLinesService();
+    protected ProductCategoriesService categoryService = new ProductCategoriesService();
+    protected ProductModelsService modelService = new ProductModelsService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboBoxProperties();
     }
 
-    private void comboBoxProperties() {
+    protected void comboBoxProperties() {
         List<ProductLinesDTO> linhas = linesService.getLines();
         comboBoxLines.getItems().addAll(linhas);
 
@@ -45,7 +45,7 @@ public class Controller implements Initializable {
         });
     }
 
-    private void treeViewStructure(ProductLinesDTO selected) {
+    protected void treeViewStructure(ProductLinesDTO selected) {
         TreeItem<String> root = new TreeItem<>();
         modelTreeView.setRoot(root);
         modelTreeView.setShowRoot(false);

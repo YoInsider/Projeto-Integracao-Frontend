@@ -5,7 +5,20 @@ public class ProductModelsDTO {
     private String name;
     private ProductCategoriesDTO category;
 
-    public Long getId() {
+    public ProductModelsDTO() {}
+
+    public ProductModelsDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public ProductModelsDTO(Long id, String name, ProductCategoriesDTO category) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+    }
+
+    public long getId() {
         return id;
     }
 
